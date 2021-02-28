@@ -1,8 +1,5 @@
 package com.example.customviewhomework.repository;
 
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.customviewhomework.data.Person;
@@ -14,11 +11,11 @@ public class PersonRepo {
     private final MutableLiveData<List<Person>> mPersonsLiveData = new MutableLiveData<>();
     Database<Person> mPersonDatabase = new DatabasePerson();
 
-    public PersonRepo(){
+    public PersonRepo() {
         setPersonValue(mPersonDatabase.retrieveData());
     }
 
-    private void setPersonValue(List<Person> personsList){
+    private void setPersonValue(List<Person> personsList) {
         mPersonsLiveData.setValue(personsList);
     }
 
@@ -26,11 +23,11 @@ public class PersonRepo {
         return mPersonsLiveData;
     }
 
-    public void insert(Person person){
+    public void insert(Person person) {
         mPersonDatabase.insert(person);
     }
 
-    public boolean update(Person oldEntry, Person newEntry){
+    public boolean update(Person oldEntry, Person newEntry) {
         return mPersonDatabase.update(oldEntry, newEntry);
     }
 }

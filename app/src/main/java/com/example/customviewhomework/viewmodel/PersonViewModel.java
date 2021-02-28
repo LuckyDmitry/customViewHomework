@@ -14,15 +14,15 @@ public class PersonViewModel extends ViewModel {
     private final PersonRepo mPersonRepository = new PersonRepo();
 
 
-    public LiveData<List<Person>> getPersonData(){
+    public LiveData<List<Person>> getPersonData() {
         return mPersonRepository.getPersonsList();
     }
 
-    public void addPerson(Person person){
+    public void addPerson(Person person) {
         mPersonRepository.insert(person);
     }
 
-    public boolean updatePerson(Person oldEntry, Person newEntry){
+    public boolean updatePerson(Person oldEntry, Person newEntry) {
         return mPersonRepository.update(oldEntry, newEntry);  // for showing a toast
     }
 

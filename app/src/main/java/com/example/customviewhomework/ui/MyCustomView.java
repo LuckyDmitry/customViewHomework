@@ -1,14 +1,11 @@
 package com.example.customviewhomework.ui;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.renderscript.Sampler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,14 +18,15 @@ import com.example.customviewhomework.R;
 import com.example.customviewhomework.data.CurrentData;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MyCustomView extends View {
 
-    private final Paint mPaint = new Paint();
     private float previous_x;
     private float init_val;
     private String name;
     private float dx;
+    private int textHeight = 96;
     ArrayList<CurrentData> data = new ArrayList<>();
 
     private int state = 1;
@@ -52,6 +50,7 @@ public class MyCustomView extends View {
         data.add(new CurrentData(name));
         data.add(new CurrentData("Call"));
 
+        Paint mPaint = new Paint();
         mPaint.setColor(Color.BLACK);
         mPaint.setTextSize(96);
         mPaint.setTextAlign(Paint.Align.CENTER);
@@ -109,23 +108,23 @@ public class MyCustomView extends View {
 
         if (dx == 0) {
             canvas.drawRect(data.get(state).getRect(), data.get(state).getRectPaint());
-            canvas.drawText(data.get(state).getStringValue(), center, 96, data.get(state).getTextPaint());
+            canvas.drawText(data.get(state).getStringValue(), center, textHeight, data.get(state).getTextPaint());
         }
         if (dx != 0) {
             data.get(state).setRect((int) (0 + dx), 0, (int) (getWidth() + dx), 120);
             canvas.drawRect(data.get(state).getRect(), data.get(state).getRectPaint());
-            canvas.drawText(data.get(state).getStringValue(), center + dx, 96, data.get(state).getTextPaint());
+            canvas.drawText(data.get(state).getStringValue(), center + dx, textHeight, data.get(state).getTextPaint());
             if (dx < 0) {
                 if (state == 1 || state == 0) {
                     data.get(state + 1).setRect(getWidth() + (int) dx, 0, getWidth() + getWidth() + (int) dx, 120);
                     canvas.drawRect(data.get(state + 1).getRect(), data.get(state + 1).getRectPaint());
-                    canvas.drawText(data.get(state + 1).getStringValue(), getWidth() + getWidth() / 2.0f + dx, 96, data.get(state + 1).getTextPaint());
+                    canvas.drawText(data.get(state + 1).getStringValue(), getWidth() + getWidth() / 2.0f + dx, textHeight, data.get(state + 1).getTextPaint());
                 }
             } else {
                 if (state == 1 || state == 2) {
                     data.get(state - 1).setRect(-getWidth() + (int) dx, 0, (int) dx, 120);
                     canvas.drawRect(data.get(state - 1).getRect(), data.get(state - 1).getRectPaint());
-                    canvas.drawText(data.get(state - 1).getStringValue(), -getWidth() / 2.0f + dx, 96, data.get(state - 1).getTextPaint());
+                    canvas.drawText(data.get(state - 1).getStringValue(), -getWidth() / 2.0f + dx, textHeight, data.get(state - 1).getTextPaint());
                 }
             }
         }
@@ -161,7 +160,7 @@ public class MyCustomView extends View {
                         } else if (state == 0) {
                             state = 1;
                         }
-                        animateView(event.getX(), 0, 1000);
+                        animateView(event.getX(), 0, 500);
                     } else {
                         if (state == 1) {
                             state = 0;
@@ -170,9 +169,13 @@ public class MyCustomView extends View {
                         }
                     }
                 } else {
-                    animateView(dx, 0, 1000);
+                    animateView(dx, 0, 500);
                 }
+                dx = 0;
+                invalidate();
+                break;
             case MotionEvent.ACTION_CANCEL:
+                animateView(dx, 0, 250);
                 dx = 0;
                 invalidate();
         }
@@ -194,4 +197,5 @@ public class MyCustomView extends View {
         data.get(1).setStringValue(name);
         invalidate();
     }
+
 }

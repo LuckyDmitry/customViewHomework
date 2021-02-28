@@ -3,20 +3,19 @@ package com.example.customviewhomework.repository;
 import com.example.customviewhomework.data.Person;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class DatabasePerson implements Database<Person>{
+public class DatabasePerson implements Database<Person> {
 
     private final Set<Person> mPersonSet = new HashSet<>();
 
 
-    DatabasePerson(){
+    DatabasePerson() {
 
-        for(Person person : generatePersons(10)){
+        for (Person person : generatePersons(10)) {
             insert(person);
         }
     }
@@ -28,7 +27,7 @@ public class DatabasePerson implements Database<Person>{
 
     @Override
     public void insert(final Person personEntry) {
-        if(personEntry != null){
+        if (personEntry != null) {
             mPersonSet.add(personEntry);
         }
     }
@@ -36,7 +35,7 @@ public class DatabasePerson implements Database<Person>{
     @Override
     public boolean update(final Person oldEntry, final Person newEntry) {
 
-        if(mPersonSet.contains(oldEntry) && !mPersonSet.contains(newEntry)){
+        if (mPersonSet.contains(oldEntry) && !mPersonSet.contains(newEntry)) {
             mPersonSet.remove(oldEntry);
             mPersonSet.add(newEntry);
             return true;
@@ -44,10 +43,10 @@ public class DatabasePerson implements Database<Person>{
         return false;
     }
 
-    private List<Person> generatePersons(int count){
+    private List<Person> generatePersons(int count) {
         List<Person> personList = new LinkedList<>();
 
-        for(int i = 0;i < count; ++i){
+        for (int i = 0; i < count; ++i) {
             personList.add(new Person("Heley" + i));
         }
         return personList;

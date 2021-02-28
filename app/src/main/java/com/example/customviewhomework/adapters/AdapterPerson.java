@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,7 @@ public class AdapterPerson extends RecyclerView.Adapter<AdapterPerson.PersonView
     private final List<Person> mPersonsList = new ArrayList<>();
     private final LayoutInflater mLayoutInflater;
 
-    public AdapterPerson(Context context, List<Person> people){
+    public AdapterPerson(Context context, List<Person> people) {
         mLayoutInflater = LayoutInflater.from(context);
         mPersonsList.addAll(people);
     }
@@ -45,13 +44,13 @@ public class AdapterPerson extends RecyclerView.Adapter<AdapterPerson.PersonView
         return mPersonsList.size();
     }
 
-    public void setPersonsList(List<Person> newList){
+    public void setPersonsList(List<Person> newList) {
         mPersonsList.clear();
         mPersonsList.addAll(newList);
         notifyDataSetChanged();
     }
 
-    class PersonViewHolder extends RecyclerView.ViewHolder{
+    class PersonViewHolder extends RecyclerView.ViewHolder {
 
         private final MyCustomView myCustomView;
 

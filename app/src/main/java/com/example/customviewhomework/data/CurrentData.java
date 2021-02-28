@@ -10,7 +10,7 @@ public class CurrentData {
     private final Rect rect = new Rect();
     private String stringValue;
 
-    public CurrentData(String val){
+    public CurrentData(String val) {
         stringValue = val;
     }
 

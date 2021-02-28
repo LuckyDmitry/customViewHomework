@@ -1,7 +1,5 @@
 package com.example.customviewhomework.repository;
 
-import com.example.customviewhomework.data.Person;
-
 import java.util.List;
 
 public interface Database<T> {
